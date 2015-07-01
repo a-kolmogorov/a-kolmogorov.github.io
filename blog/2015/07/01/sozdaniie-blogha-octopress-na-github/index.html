@@ -80,40 +80,29 @@
 
 <p><strong>Octopress</strong> — технология, которая позволяет удобно генерировать статический контент в HTML виде. Это фреймворк, использующий <a href="http://jekyllrb.com/">Jekyll</a>. В статье рассмотрен быстрый простой пример развертнывания блога с использованием Octopress 3, который будет находиться на Github.</p>
 
-<p><strong>Deploying to Github Pages</strong> <a href="http://octopress.org/docs/deploying/github/">подробно в документации</a></p>
+<p><strong>Deploying to Github Pages</strong> <a href="http://octopress.org/docs/deploying/github/">подробно в документации</a><br>
+&lt;!-- more --&gt;<br>
+Создадим гитхаб <a href="https://github.com/new">репозиторий</a> <strong>username.github.io</strong> в дальнейшем на нем будет лежать блог.</p>
 
-<!-- more -->
+<p>Получаем Octopress и устанавливаем зависимости:<br>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span><br>
+<span class='line-number'>2</span><br>
+<span class='line-number'>3</span><br>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git clone git://github.com/imathis/octopress.git octopress<br>
+</span><span class='line'>$ cd octopress<br>
+</span><span class='line'>$ bundle install</span></code></pre></td></tr></table></div></figure><br>
+Выбираем наиболее подходящую <a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">тему</a> и устанавливаем ее.</p>
 
+<p>Пример установки темы:<br>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span><br>
+<span class='line-number'>2</span><br>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git clone <a href="https://github.com/bijumon/oct2.git">https://github.com/bijumon/oct2.git</a> .themes/<br>
+</span><span class='line'>$ bundle exec rake install[oct2]</span></code></pre></td></tr></table></div></figure></p>
 
-<p>Создадим гитхаб <a href="https://github.com/new">репозиторий</a> <strong>username.github.io</strong> в дальнейшем на нем будет лежать блог.</p>
-
-<p>Получаем Octopress и устанавливаем зависимости:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ git clone git://github.com/imathis/octopress.git octopress
-</span><span class='line'>$ cd octopress
-</span><span class='line'>$ bundle install</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Выбираем наиболее подходящую <a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">тему</a> и устанавливаем ее.</p>
-
-<p>Пример установки темы:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ git clone https://github.com/bijumon/oct2.git .themes/
-</span><span class='line'>$ bundle exec rake install[oct2]</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Далее выполняем:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake setup_github_pages</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Далее попросят ввести адрес блога. Пример: <strong>git@github.com:username/username.github.io.git</strong></p>
+<p>Далее выполняем:<br>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span><br>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake setup_github_pages</span></code></pre></td></tr></table></div></figure><br>
+Далее попросят ввести адрес блога. Пример: <strong><a href="mailto:git@github.com">git@github.com</a>:username/username.github.io.git</strong></p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -132,26 +121,32 @@
 </span><span class='line'># развертывает на облаке
 </span><span class='line'>$ rake deploy</span></code></pre></td></tr></table></div></figure>
 
-
-<h3>Настройка</h3>
+<h3 id="Настройка">Настройка</h3>
 
 <p>Официально поддерживающиеся <a href="http://octopress.org/docs/plugins/">плагины</a></p>
 
 <p>Все статьи создаются в разметке markdown, подробнее <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#code">синтаксис</a></p>
 
-<p>Добавление новых статей:</p>
+<p>Добавление новых статей:<br>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span><br>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake new_post[&quot;Название новой статьи&quot;]</span></code></pre></td></tr></table></div></figure><br>
+далее они появляются <strong>source/_post</strong></p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake new_post["Название новой статьи"]</span></code></pre></td></tr></table></div></figure>
+<p>Для разделения preview и полной новости в файле статьи, после абзаца нужно добавить строку:<br>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span><br>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;!-- more --&gt;</span></code></pre></td></tr></table></div></figure></p>
 
-
-<p>далее они появляются <strong>source/_post</strong></p>
-
-<p>Для разделения preview и полной новости в файле статьи, после абзаца нужно добавить строку:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;!-- more --&gt;</span></code></pre></td></tr></table></div></figure>
-
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">key</span> <span class="n">a</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">a</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">key</span> <span class="s2">&quot;222&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
 </div>
 
 
