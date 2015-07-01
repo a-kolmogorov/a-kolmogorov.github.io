@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Блог о Ruby on Rails и стеку похожих технологий]]></title>
+  <link href="http://onedal.github.io/atom.xml" rel="self"/>
+  <link href="http://onedal.github.io/"/>
+  <updated>2015-07-01T14:34:33+10:00</updated>
+  <id>http://onedal.github.io/</id>
+  <author>
+    <name><![CDATA[Алексей Колмогоров]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Создание блога Octopress на github]]></title>
+    <link href="http://onedal.github.io/blog/2015/07/01/sozdaniie-blogha-octopress-na-github/"/>
+    <updated>2015-07-01T14:33:54+10:00</updated>
+    <id>http://onedal.github.io/blog/2015/07/01/sozdaniie-blogha-octopress-na-github</id>
+    <content type="html"><![CDATA[<p><img src="http://evanemolo.com/images/octopress.jpg"></p>
+
+<p><strong>Octopress</strong> — технология, которая позволяет удобно генерировать статический контент в HTML виде. Это фреймворк, использующий <a href="http://jekyllrb.com/">Jekyll</a>. В статье рассмотрен быстрый простой пример развертнывания блога с использованием Octopress 3, который будет находиться на Github.</p>
+
+<p><strong>Deploying to Github Pages</strong> <a href="http://octopress.org/docs/deploying/github/">подробно в документации</a></p>
+
+<!-- more -->
+
+
+<p>Создадим гитхаб <a href="https://github.com/new">репозиторий</a> <strong>username.github.io</strong> в дальнейшем на нем будет лежать блог.</p>
+
+<p>Получаем Octopress и устанавливаем зависимости:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git clone git://github.com/imathis/octopress.git octopress
+</span><span class='line'>$ cd octopress
+</span><span class='line'>$ bundle install</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выбираем наиболее подходящую <a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">тему</a> и устанавливаем ее.</p>
+
+<p>Пример установки темы:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git clone https://github.com/bijumon/oct2.git .themes/
+</span><span class='line'>$ bundle exec rake install[oct2]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Далее выполняем:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake setup_github_pages</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Далее попросят ввести адрес блога. Пример: <strong>git@github.com:username/username.github.io.git</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># генерирует тему оформления
+</span><span class='line'>$ rake generate
+</span><span class='line'>
+</span><span class='line'># запускает веб-сервер на локальном компе (http://localhost:4000/) 
+</span><span class='line'>$ rake preview
+</span><span class='line'>
+</span><span class='line'># развертывает на облаке
+</span><span class='line'>$ rake deploy</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Настройка</h3>
+
+<p>Официально поддерживающиеся <a href="http://octopress.org/docs/plugins/">плагины</a></p>
+
+<p>Все статьи создаются в разметке markdown, подробнее <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#code">синтаксис</a></p>
+
+<p>Добавление новых статей:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake new_post["Название новой статьи"]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>далее они появляются <strong>source/_post</strong></p>
+
+<p>Для разделения preview и полной новости в файле статьи, после абзаца нужно добавить строку:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;!-- more --&gt;</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+</feed>

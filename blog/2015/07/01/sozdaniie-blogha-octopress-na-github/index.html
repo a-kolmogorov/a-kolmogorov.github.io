@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Создание блога Octopress на github - Блог о Ruby on Rails и стеку похожих технологий</title>
+  <meta name="author" content="Алексей Колмогоров">
+
+  
+  <meta name="description" content="Octopress — технология, которая позволяет удобно генерировать статический контент в HTML виде. Это фреймворк, использующий Jekyll. В статье &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://onedal.github.io/blog/2015/07/01/sozdaniie-blogha-octopress-na-github/">
+  <link href="https://webpay.jp/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+   <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Блог о Ruby on Rails и стеку похожих технологий" type="application/atom+xml">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css" rel="stylesheet">
+
+<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Lora:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:200,300,400,500,600,700,900' rel='stylesheet' type='text/css'>
+
+
+
+
+  
+
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+</hgroup>
+
+</header>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Создание блога Octopress на Github</h1>
+    
+    
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Алексей Колмогоров</span></span>
+
+    
+      <p class="meta">
+        <i class="fa fa-calendar"></i>
+
+
+
+
+
+<time class='entry-date' datetime='2015-07-01T14:33:54+10:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><img src="http://evanemolo.com/images/octopress.jpg"></p>
+
+<p><strong>Octopress</strong> — технология, которая позволяет удобно генерировать статический контент в HTML виде. Это фреймворк, использующий <a href="http://jekyllrb.com/">Jekyll</a>. В статье рассмотрен быстрый простой пример развертнывания блога с использованием Octopress 3, который будет находиться на Github.</p>
+
+<p><strong>Deploying to Github Pages</strong> <a href="http://octopress.org/docs/deploying/github/">подробно в документации</a></p>
+
+<!-- more -->
+
+
+<p>Создадим гитхаб <a href="https://github.com/new">репозиторий</a> <strong>username.github.io</strong> в дальнейшем на нем будет лежать блог.</p>
+
+<p>Получаем Octopress и устанавливаем зависимости:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git clone git://github.com/imathis/octopress.git octopress
+</span><span class='line'>$ cd octopress
+</span><span class='line'>$ bundle install</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выбираем наиболее подходящую <a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">тему</a> и устанавливаем ее.</p>
+
+<p>Пример установки темы:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git clone https://github.com/bijumon/oct2.git .themes/
+</span><span class='line'>$ bundle exec rake install[oct2]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Далее выполняем:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake setup_github_pages</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Далее попросят ввести адрес блога. Пример: <strong>git@github.com:username/username.github.io.git</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># генерирует тему оформления
+</span><span class='line'>$ rake generate
+</span><span class='line'>
+</span><span class='line'># запускает веб-сервер на локальном компе (http://localhost:4000/) 
+</span><span class='line'>$ rake preview
+</span><span class='line'>
+</span><span class='line'># развертывает на облаке
+</span><span class='line'>$ rake deploy</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Настройка</h3>
+
+<p>Официально поддерживающиеся <a href="http://octopress.org/docs/plugins/">плагины</a></p>
+
+<p>Все статьи создаются в разметке markdown, подробнее <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#code">синтаксис</a></p>
+
+<p>Добавление новых статей:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake new_post["Название новой статьи"]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>далее они появляются <strong>source/_post</strong></p>
+
+<p>Для разделения preview и полной новости в файле статьи, после абзаца нужно добавить строку:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;!-- more --&gt;</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      <i class="fa fa-calendar"></i>
+
+
+
+
+
+<time class='entry-date' datetime='2015-07-01T14:33:54+10:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://onedal.github.io/blog/2015/07/01/sozdaniie-blogha-octopress-na-github/" data-via="" data-counturl="http://onedal.github.io/blog/2015/07/01/sozdaniie-blogha-octopress-na-github/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section id="titles">
+  <a href="/" title="Блог о Ruby on Rails и стеку похожих технологий"><img id="logo" src="/images/portrait.png" /></a>
+  <h3 id="site_subtitle"><a href="/" title="Блог о Ruby on Rails и стеку похожих технологий">Блог о Ruby on Rails и стеку похожих технологий</a></h3>
+</section>
+
+<section id="menu">
+  <ul>
+    <li><a href="/archives/"><i class="fa fa-archive fa-lg"></i>Archives</a></li>
+    <li><a href="/about/"><i class="fa fa-info-circle fa-lg"></i>About</a></li>
+    <li><a href="/atom.xml"><i class="fa fa-rss fa-lg"></i>Feed</a></li>
+    <li><a href="http://blog.webpay.co.jp" target="_blank"><i class="fa fa-external-link fa-lg"></i>Company Blog</a></li>
+    <li><a href="https://webpay.jp" target="_blank"><i class="fa fa-external-link fa-lg"></i>WebPay</a></li>
+  </ul>
+</section>
+
+<section id="social">
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <a href="https://facebook.com/webpay.jp" title="WebPay" target="_blank"><i class="fa fa-facebook-square fa-2x"></i></a>
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/07/01/sozdaniie-blogha-octopress-na-github/">Создание блога Octopress на github</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Алексей Колмогоров -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'onedal';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://onedal.github.io/blog/2015/07/01/sozdaniie-blogha-octopress-na-github/';
+        var disqus_url = 'http://onedal.github.io/blog/2015/07/01/sozdaniie-blogha-octopress-na-github/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
