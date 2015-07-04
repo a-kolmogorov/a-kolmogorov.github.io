@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://onedal.github.io/blog/2015/07/05/ustanovka-railsadmin/</loc>
+    <lastmod>2015-07-05T09:39:04+10:00</lastmod>
+  </url>
+  <url>
     <loc>http://onedal.github.io/blog/2015/07/01/sozdaniie-blogha-octopress-na-github/</loc>
     <lastmod>2015-07-01T14:33:54+10:00</lastmod>
   </url>
