@@ -4,7 +4,7 @@
   <title><![CDATA[Блог о Ruby on Rails и стеку похожих технологий]]></title>
   <link href="http://onedal.github.io/atom.xml" rel="self"/>
   <link href="http://onedal.github.io/"/>
-  <updated>2015-07-05T09:45:04+10:00</updated>
+  <updated>2015-07-05T10:26:30+10:00</updated>
   <id>http://onedal.github.io/</id>
   <author>
     <name><![CDATA[Алексей Колмогоров]]></name>
@@ -12,6 +12,164 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Установка и настройка markdown для ruby on rails]]></title>
+    <link href="http://onedal.github.io/blog/2015/07/05/ustanovka-i-nastroika-markdown-dlia-ruby-on-rails/"/>
+    <updated>2015-07-05T10:22:23+10:00</updated>
+    <id>http://onedal.github.io/blog/2015/07/05/ustanovka-i-nastroika-markdown-dlia-ruby-on-rails</id>
+    <content type="html"><![CDATA[<p>Markdown (маркдаун) — облегчённый язык разметки созданный с целью написания максимально читабельного и удобного для правки текста, но пригодного для преобразования в языки для продвинутых публикаций (HTML, Rich Text и др.).</p>
+
+<p>Цель статьи показать наиболее быструю настройку markdown разметки для ruby on rails и настроить панель редактирования для удобного написания статей.</p>
+
+<p><img src="http://mikemclin.net/mmwp/wp-content/uploads/2013/03/markdown-syntax-language.png"></p>
+
+<!-- more -->
+
+
+<h2>Установка redcarpet</h2>
+
+<p>Для markdown разметки будет использоваться <a href="https://github.com/vmg/redcarpet">redcarpet</a>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># Gemfile</span>
+</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;redcarpet&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="err">$</span> <span class="n">bundle</span> <span class="n">install</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Теперь создадим хелпер для удобного использования:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># app/helpers/application_helper.rb</span>
+</span><span class='line'><span class="k">module</span> <span class="nn">ApplicationHelper</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">markdown</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>      <span class="ss">filter_html</span><span class="p">:</span>     <span class="kp">true</span><span class="p">,</span>
+</span><span class='line'>      <span class="ss">hard_wrap</span><span class="p">:</span>       <span class="kp">true</span><span class="p">,</span>
+</span><span class='line'>      <span class="ss">link_attributes</span><span class="p">:</span> <span class="p">{</span> <span class="ss">rel</span><span class="p">:</span> <span class="s1">&#39;nofollow&#39;</span><span class="p">,</span> <span class="ss">target</span><span class="p">:</span> <span class="s2">&quot;_blank&quot;</span> <span class="p">},</span>
+</span><span class='line'>      <span class="ss">space_after_headers</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span>
+</span><span class='line'>      <span class="ss">fenced_code_blocks</span><span class="p">:</span> <span class="kp">true</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">extensions</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>      <span class="ss">autolink</span><span class="p">:</span>           <span class="kp">true</span><span class="p">,</span>
+</span><span class='line'>      <span class="ss">superscript</span><span class="p">:</span>        <span class="kp">true</span><span class="p">,</span>
+</span><span class='line'>      <span class="ss">disable_indented_code_blocks</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span>
+</span><span class='line'>      <span class="ss">strikethrough</span><span class="p">:</span> <span class="kp">true</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">renderer</span> <span class="o">=</span> <span class="no">Redcarpet</span><span class="o">::</span><span class="no">Render</span><span class="o">::</span><span class="no">HTML</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">markdown</span> <span class="o">=</span> <span class="no">Redcarpet</span><span class="o">::</span><span class="no">Markdown</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">renderer</span><span class="p">,</span> <span class="n">extensions</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">markdown</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">html_safe</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>О дополнительных функциях можно прочитать <a href="https://github.com/vmg/redcarpet">здесь</a>.</p>
+
+<h3>Использование</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x"># app/views/...</span>
+</span><span class='line'><span class="cp">&lt;%=</span> <span class="n">markdown</span><span class="p">(</span><span class="vi">@post</span><span class="o">.</span><span class="n">body</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Панель редактирования</h2>
+
+<p>В качестве панели для редактирования markdown разметки можно использовать
+<a href="http://www.codingdrama.com/bootstrap-markdown/">Simple Markdown editing</a>.
+Она использует компоненты bootstrap, поэтому необходимо вначале его установить.
+Установка очень простая и подробно описана <a href="https://github.com/twbs/bootstrap-sass">здесь</a>.</p>
+
+<h3>Установка Markdown панели</h3>
+
+<p>Для  редактора используем <a href="https://github.com/dannytatom/rails-bootstrap-markdown">rails-bootstrap-markdown</a>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># Gemfile</span>
+</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;rails-bootstrap-markdown&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>В assets/javascripts/application.js добавляем:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">//= require bootstrap-markdown-bundle</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>В assets/stylesheets/application.css.scss добавляем:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">*=</span> <span class="nt">require</span> <span class="nt">bootstrap-markdown</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Затем выполняем:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">$</span> <span class="nt">bundle</span> <span class="nt">install</span>
+</span><span class='line'><span class="o">$</span> <span class="nt">rake</span> <span class="nt">assets</span><span class="nd">:precompile</span> <span class="nt">RAILS_ENV</span><span class="o">=</span><span class="nt">production</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Использование</h3>
+
+<p>Используется для аттрибутов типа &lsquo;textarea&rsquo;:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># form_for</span>
+</span><span class='line'><span class="ss">:description</span><span class="p">,</span> <span class="ss">:html</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="n">data</span><span class="o">-</span><span class="n">provide</span><span class="o">=</span><span class="s1">&#39;markdown&#39;</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># simple_form</span>
+</span><span class='line'><span class="ss">:description</span><span class="p">,</span> <span class="ss">:input_html</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:data</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:provide</span> <span class="o">=&gt;</span> <span class="s2">&quot;markdown&quot;</span><span class="p">}</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Установка RailsAdmin]]></title>

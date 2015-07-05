@@ -1,0 +1,389 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Установка и настройка markdown для ruby on rails - Блог о Ruby on Rails и стеку похожих технологий</title>
+  <meta name="author" content="Алексей Колмогоров">
+
+  
+  <meta name="description" content="Markdown (маркдаун) — облегчённый язык разметки созданный с целью написания максимально читабельного и удобного для правки текста, но пригодного для &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://onedal.github.io/blog/2015/07/05/ustanovka-i-nastroika-markdown-dlia-ruby-on-rails/">
+  <link href="https://webpay.jp/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+   <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Блог о Ruby on Rails и стеку похожих технологий" type="application/atom+xml">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css" rel="stylesheet">
+
+<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Lora:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:200,300,400,500,600,700,900' rel='stylesheet' type='text/css'>
+
+
+
+
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-64692126-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+</hgroup>
+
+</header>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Установка и настройка Markdown для Ruby on Rails</h1>
+    
+    
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Алексей Колмогоров</span></span>
+
+    
+      <p class="meta">
+        <i class="fa fa-calendar"></i>
+
+
+
+
+
+<time class='entry-date' datetime='2015-07-05T10:22:23+10:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Markdown (маркдаун) — облегчённый язык разметки созданный с целью написания максимально читабельного и удобного для правки текста, но пригодного для преобразования в языки для продвинутых публикаций (HTML, Rich Text и др.).</p>
+
+<p>Цель статьи показать наиболее быструю настройку markdown разметки для ruby on rails и настроить панель редактирования для удобного написания статей.</p>
+
+<p><img src="http://mikemclin.net/mmwp/wp-content/uploads/2013/03/markdown-syntax-language.png"></p>
+
+<!-- more -->
+
+
+<h2>Установка redcarpet</h2>
+
+<p>Для markdown разметки будет использоваться <a href="https://github.com/vmg/redcarpet">redcarpet</a>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># Gemfile</span>
+</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;redcarpet&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="err">$</span> <span class="n">bundle</span> <span class="n">install</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Теперь создадим хелпер для удобного использования:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># app/helpers/application_helper.rb</span>
+</span><span class='line'><span class="k">module</span> <span class="nn">ApplicationHelper</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">markdown</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>      <span class="ss">filter_html</span><span class="p">:</span>     <span class="kp">true</span><span class="p">,</span>
+</span><span class='line'>      <span class="ss">hard_wrap</span><span class="p">:</span>       <span class="kp">true</span><span class="p">,</span>
+</span><span class='line'>      <span class="ss">link_attributes</span><span class="p">:</span> <span class="p">{</span> <span class="ss">rel</span><span class="p">:</span> <span class="s1">&#39;nofollow&#39;</span><span class="p">,</span> <span class="ss">target</span><span class="p">:</span> <span class="s2">&quot;_blank&quot;</span> <span class="p">},</span>
+</span><span class='line'>      <span class="ss">space_after_headers</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span>
+</span><span class='line'>      <span class="ss">fenced_code_blocks</span><span class="p">:</span> <span class="kp">true</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">extensions</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>      <span class="ss">autolink</span><span class="p">:</span>           <span class="kp">true</span><span class="p">,</span>
+</span><span class='line'>      <span class="ss">superscript</span><span class="p">:</span>        <span class="kp">true</span><span class="p">,</span>
+</span><span class='line'>      <span class="ss">disable_indented_code_blocks</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span>
+</span><span class='line'>      <span class="ss">strikethrough</span><span class="p">:</span> <span class="kp">true</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">renderer</span> <span class="o">=</span> <span class="no">Redcarpet</span><span class="o">::</span><span class="no">Render</span><span class="o">::</span><span class="no">HTML</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">markdown</span> <span class="o">=</span> <span class="no">Redcarpet</span><span class="o">::</span><span class="no">Markdown</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">renderer</span><span class="p">,</span> <span class="n">extensions</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">markdown</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">html_safe</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>О дополнительных функциях можно прочитать <a href="https://github.com/vmg/redcarpet">здесь</a>.</p>
+
+<h3>Использование</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x"># app/views/...</span>
+</span><span class='line'><span class="cp">&lt;%=</span> <span class="n">markdown</span><span class="p">(</span><span class="vi">@post</span><span class="o">.</span><span class="n">body</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Панель редактирования</h2>
+
+<p>В качестве панели для редактирования markdown разметки можно использовать
+<a href="http://www.codingdrama.com/bootstrap-markdown/">Simple Markdown editing</a>.
+Она использует компоненты bootstrap, поэтому необходимо вначале его установить.
+Установка очень простая и подробно описана <a href="https://github.com/twbs/bootstrap-sass">здесь</a>.</p>
+
+<h3>Установка Markdown панели</h3>
+
+<p>Для  редактора используем <a href="https://github.com/dannytatom/rails-bootstrap-markdown">rails-bootstrap-markdown</a>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># Gemfile</span>
+</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;rails-bootstrap-markdown&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>В assets/javascripts/application.js добавляем:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">//= require bootstrap-markdown-bundle</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>В assets/stylesheets/application.css.scss добавляем:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">*=</span> <span class="nt">require</span> <span class="nt">bootstrap-markdown</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Затем выполняем:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">$</span> <span class="nt">bundle</span> <span class="nt">install</span>
+</span><span class='line'><span class="o">$</span> <span class="nt">rake</span> <span class="nt">assets</span><span class="nd">:precompile</span> <span class="nt">RAILS_ENV</span><span class="o">=</span><span class="nt">production</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Использование</h3>
+
+<p>Используется для аттрибутов типа &lsquo;textarea&rsquo;:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># form_for</span>
+</span><span class='line'><span class="ss">:description</span><span class="p">,</span> <span class="ss">:html</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="n">data</span><span class="o">-</span><span class="n">provide</span><span class="o">=</span><span class="s1">&#39;markdown&#39;</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># simple_form</span>
+</span><span class='line'><span class="ss">:description</span><span class="p">,</span> <span class="ss">:input_html</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:data</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:provide</span> <span class="o">=&gt;</span> <span class="s2">&quot;markdown&quot;</span><span class="p">}</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      <i class="fa fa-calendar"></i>
+
+
+
+
+
+<time class='entry-date' datetime='2015-07-05T10:22:23+10:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://onedal.github.io/blog/2015/07/05/ustanovka-i-nastroika-markdown-dlia-ruby-on-rails/" data-via="" data-counturl="http://onedal.github.io/blog/2015/07/05/ustanovka-i-nastroika-markdown-dlia-ruby-on-rails/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/07/05/ustanovka-railsadmin/" title="Previous Post: Установка RailsAdmin">&laquo; Установка RailsAdmin</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section id="titles">
+  <a href="/" title="Блог о Ruby on Rails и стеку похожих технологий"><img id="logo" src="/images/portrait.png" /></a>
+  <h3 id="site_subtitle"><a href="/" title="Блог о Ruby on Rails и стеку похожих технологий">Блог о Ruby on Rails и стеку похожих технологий</a></h3>
+</section>
+
+<section id="menu">
+  <ul>
+    <li><a href="/archives/"><i class="fa fa-archive fa-lg"></i>Архив</a></li>
+    <li><a href="/about/"><i class="fa fa-info-circle fa-lg"></i>About</a></li>
+    <li><a href="/atom.xml"><i class="fa fa-rss fa-lg"></i>Feed</a></li>
+    <li><a href="http://rubycode.ru" target="_blank"><i class="fa fa-external-link fa-lg"></i>Rubycode</a></li>
+  </ul>
+</section>
+
+<section id="social">
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <a href="https://www.facebook.com/groups/1553827904894454/" title="WebPay" target="_blank"><i class="fa fa-facebook-square fa-2x"></i></a>
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/07/05/ustanovka-i-nastroika-markdown-dlia-ruby-on-rails/">Установка и настройка markdown для ruby on rails</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/05/ustanovka-railsadmin/">Установка RailsAdmin</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/01/sozdaniie-blogha-octopress-na-github/">Создание блога Octopress на github</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Алексей Колмогоров -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'onedal';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://onedal.github.io/blog/2015/07/05/ustanovka-i-nastroika-markdown-dlia-ruby-on-rails/';
+        var disqus_url = 'http://onedal.github.io/blog/2015/07/05/ustanovka-i-nastroika-markdown-dlia-ruby-on-rails/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
